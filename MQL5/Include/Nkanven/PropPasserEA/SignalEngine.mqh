@@ -123,8 +123,10 @@ ENUM_MODE_TRADE_SIGNAL CheckEmaCrossoverSignal()
 //+------------------------------------------------------------------+
 ENUM_MODE_TRADE_SIGNAL GetSignal()
   {
-   //--- Only one trade per completed candle
-   datetime barTime = iTime(gSymbol, InpTimeFrame, 1);
+   //--- FIX v1.01: anchor to bar[0] (current live candle) — bar[1] caused
+   //    double entries at every new candle open. See OrderManager.mqh for
+   //    the matching change.
+   datetime barTime = iTime(gSymbol, InpTimeFrame, 0);
    if(barTime == gLastBarTraded)
       return NO_SIGNAL;
 

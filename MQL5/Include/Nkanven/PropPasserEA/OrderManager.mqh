@@ -105,7 +105,8 @@ void ExecuteOrder(ENUM_MODE_TRADE_SIGNAL signal)
 
    if(success)
      {
-      gLastBarTraded = iTime(gSymbol, InpTimeFrame, 1);
+      //--- FIX v1.01: record bar[0] (current candle) to match GetSignal() check.
+      gLastBarTraded = iTime(gSymbol, InpTimeFrame, 0);
       Print("OrderManager: Order placed — ", EnumToString(signal),
             " Lot=", gLotSize,
             " Entry=", entryPrice,
