@@ -29,6 +29,9 @@ void ScanPositions()
                gTotalBuyPositions++;
             else if(PositionGetInteger(POSITION_TYPE) == POSITION_TYPE_SELL)
                gTotalSellPositions++;
+            //--- gLastBarTraded is managed exclusively by OrderManager after a successful order.
+            //--- Do NOT update it here — POSITION_TIME is a fill timestamp, not a candle open time,
+            //--- and overwriting it breaks the bar-guard in GetSignal(). See fix v1.02.
            }
         }
      }
