@@ -32,7 +32,7 @@ bool CalculateLotSize(double SL_points)
          else if(InpRiskBase == RISK_BASE_EQUITY)
             riskBase = AccountInfoDouble(ACCOUNT_EQUITY);
          else if(InpRiskBase == RISK_BASE_FREEMARGIN)
-            riskBase = AccountInfoDouble(ACCOUNT_FREEMARGIN);
+            riskBase = AccountInfoDouble(ACCOUNT_MARGIN_FREE);
 
          //--- Dollar value of 1 tick movement for 1 lot
          double tickValue = SymbolInfoDouble(gSymbol, SYMBOL_TRADE_TICK_VALUE);

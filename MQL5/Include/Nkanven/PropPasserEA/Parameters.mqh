@@ -112,6 +112,13 @@ input int    InpMagicNumber         = 202401;                        //Magic Num
 input string InpComment             = __FILE__;                      //Trade Comment
 input ENUM_TIMEFRAMES InpTimeFrame  = PERIOD_CURRENT;                //Timeframe
 
+//--- Dashboard Settings
+input string Comment_Dashboard = "==========";                       //=== DASHBOARD SETTINGS ===
+input bool   InpShowDashboard       = true;                          //Show Chart Dashboard Panel
+input ENUM_BASE_CORNER InpDashboardCorner = CORNER_LEFT_UPPER;       //Dashboard Corner
+input int    InpDashboardX          = 10;                            //Dashboard X Distance (pixels)
+input int    InpDashboardY          = 20;                            //Dashboard Y Distance (pixels)
+
 //+------------------------------------------------------------------+
 //| GLOBAL VARIABLES                                                 |
 //+------------------------------------------------------------------+

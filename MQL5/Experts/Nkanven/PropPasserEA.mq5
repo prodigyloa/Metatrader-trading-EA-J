@@ -162,7 +162,7 @@ void OnTick()
 //| Track trading days via closed deal events                        |
 //+------------------------------------------------------------------+
 void OnTradeTransaction(const MqlTradeTransaction& trans,
-                        const MqlTradeResult&      request,
+                        const MqlTradeRequest&     request,
                         const MqlTradeResult&      result)
   {
    //--- We only care about deals added to history
