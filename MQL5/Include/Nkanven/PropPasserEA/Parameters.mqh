@@ -73,6 +73,7 @@ input int    InpRsiPeriod           = 14;                            //RSI Perio
 input double InpRsiOverbought       = 55.0;                          //RSI Sell Filter Threshold
 input double InpRsiOversold         = 45.0;                          //RSI Buy Filter Threshold
 input int    InpPinBarWickPct       = 65;                            //Min Pin Bar Wick % of Candle Range
+input int    InpMinBodyPct          = 10;                            //Min Pin Bar Body % of Candle Range (filters doji)
 input int    InpMinCandlePoints     = 100;                           //Min Candle Size in Points (filter doji)
 
 //--- Risk Management

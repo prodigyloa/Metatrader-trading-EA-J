@@ -80,7 +80,7 @@ string StrategyShortName()
 //+------------------------------------------------------------------+
 void InitDashboard()
   {
-   if(!InpShowDashboard) return;
+   if(!InpShowDashboard || IsTesting()) return;
 
    for(int i = 0; i < DASH_LINES; i++)
      {
@@ -108,7 +108,7 @@ void InitDashboard()
 //+------------------------------------------------------------------+
 void UpdateDashboard()
   {
-   if(!InpShowDashboard) return;
+   if(!InpShowDashboard || IsTesting()) return;
 
    double balance    = AccountInfoDouble(ACCOUNT_BALANCE);
    double equity     = AccountInfoDouble(ACCOUNT_EQUITY);
@@ -175,6 +175,7 @@ void UpdateDashboard()
 //+------------------------------------------------------------------+
 void DestroyDashboard()
   {
+   if(IsTesting()) return;
    for(int i = 0; i < DASH_LINES; i++)
      {
       string name = DashName(i);

@@ -61,18 +61,25 @@ ENUM_MODE_TRADE_SIGNAL CheckPinBarSignal()
    double upperWick = candleHigh - bodyHigh;
    double lowerWick = bodyLow - candleLow;
 
-   //--- Trend EMA value at the completed candle
+   //--- Trend EMA value at the completed candle (and previous bar for slope)
    double emaValue = GetIndValue(g_h_ema_trend, 0, 1);
    if(emaValue == EMPTY_VALUE) return NO_SIGNAL;
+   double emaPrev = GetIndValue(g_h_ema_trend, 0, 2);
+   if(emaPrev == EMPTY_VALUE) return NO_SIGNAL;
 
    double wickThreshold = range * InpPinBarWickPct / 100.0;
 
-   //--- Bullish pin bar: long lower wick, price above trend EMA
-   if(lowerWick >= wickThreshold && candleClose > emaValue)
+   //--- Body must be at least InpMinBodyPct% of range (filters doji pin bars)
+   double bodySize = bodyHigh - bodyLow;
+   double bodyThreshold = range * InpMinBodyPct / 100.0;
+   if(bodySize < bodyThreshold) return NO_SIGNAL;
+
+   //--- Bullish pin bar: long lower wick, price above trend EMA, EMA rising
+   if(lowerWick >= wickThreshold && candleClose > emaValue && emaValue > emaPrev)
       return BUY_SIGNAL;
 
-   //--- Bearish pin bar: long upper wick, price below trend EMA
-   if(upperWick >= wickThreshold && candleClose < emaValue)
+   //--- Bearish pin bar: long upper wick, price below trend EMA, EMA falling
+   if(upperWick >= wickThreshold && candleClose < emaValue && emaValue < emaPrev)
       return SELL_SIGNAL;
 
    return NO_SIGNAL;

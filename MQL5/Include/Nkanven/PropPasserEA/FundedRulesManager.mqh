@@ -44,6 +44,7 @@ void CloseAllPositions(string reason)
 //+------------------------------------------------------------------+
 void SaveFundedState()
   {
+   if(IsTesting()) return;
    GlobalVariableSet(GV_PREFIX + "InitialBalance",   gInitialBalance);
    GlobalVariableSet(GV_PREFIX + "PeakEquity",       gPeakEquity);
    GlobalVariableSet(GV_PREFIX + "DailyStartEquity", gDailyStartEquity);
@@ -60,6 +61,23 @@ void SaveFundedState()
 //+------------------------------------------------------------------+
 void LoadFundedState()
   {
+   if(IsTesting())
+     {
+      //--- Tester/optimiser: skip GlobalVariable I/O, always start fresh
+      double equity = AccountInfoDouble(ACCOUNT_EQUITY);
+      gInitialBalance   = (InpInitialBalance > 0.0) ? InpInitialBalance
+                           : AccountInfoDouble(ACCOUNT_BALANCE);
+      gPeakEquity       = equity;
+      gDailyStartEquity = equity;
+      gDaysTraded       = 0;
+      gLastDayReset     = TimeCurrent();
+      gMaxDDHit         = false;
+      gTargetReached    = false;
+      gDailyLimitHit    = false;
+      Print("PropPasserEA [FundedRules]: Tester init — InitBal=", gInitialBalance);
+      return;
+     }
+
    double storedBalance = 0.0;
    if(GlobalVariableGet(GV_PREFIX + "InitialBalance", storedBalance) && storedBalance > 0.0)
      {
